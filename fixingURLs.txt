@@ -1,0 +1,26 @@
+// Only change code below this line
+function urlSlug(title) {
+
+let trimArr = [];
+let splitarr = [];
+let lowerCaseArr = [];
+
+trimArr = title.trim();
+splitarr = trimArr.split(" ");
+
+// This is so dirty - Dumping the whitespace if the string starts with
+// This doesn't seem to be accepted through the tests - using .trim does better since it also trims whitespace from last position
+
+//if (title[0] == ' ') {
+//  splitarr.shift();
+// };
+
+lowerCaseArr = splitarr.map(lowerme => lowerme.toLowerCase());
+
+return lowerCaseArr.join("-");
+
+}
+// Only change code above this line
+urlSlug(" Winter Is  Coming");
+
+console.log(urlSlug(" Winter Is Coming"));

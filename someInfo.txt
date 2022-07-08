@@ -1,0 +1,58 @@
+.map()
+Method that has a callback function as inargument and that function can be decide in what way map will
+put it's object attributes in a new array (without affecting the first).
+
+The callback function can be called with three arguments. 1: Element (what to operate on/with), Index of element, Current
+array working on
+
+In this 
+Code Example
+we will call the callback function with a first argument only. The element will be a function named user returning user.name
+:
+
+const users = [
+  { name: 'John', age: 34 },
+  { name: 'Amy', age: 20 },
+  { name: 'camperCat', age: 10 }
+];
+
+const names = users.map(user => user.name);
+console.log(names);
+
+user is the name of a newly created function that returns user.name and is used by .map.
+.map is used on object users and returns all user.name decided by the callback function. (infunction to .map)
+
+Another example:
+
+const watchList = [
+  {
+    "Title": "Inception",
+    "Year": "2010",
+    "Rated": "PG-13",
+    "Released": "16 Jul 2010",
+    "Runtime": "148 min",
+    "Genre": "Action, Adventure, Crime",
+    "Director": "Christopher Nolan",
+    "Writer": "Christopher Nolan",
+    "Actors": "Leonardo DiCaprio, Joseph Gordon-Levitt, Elliot Page, Tom Hardy",
+    "Plot": "A thief, who steals corporate secrets through use of dream-sharing technology, is given the inverse task of planting an idea into the mind of a CEO.",
+    "Language": "English, Japanese, French",
+    "Country": "USA, UK",
+    "Awards": "Won 4 Oscars. Another 143 wins & 198 nominations.",
+    "Poster": "http://ia.media-imdb.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg",
+    "Metascore": "74",
+    "imdbRating": "8.8",
+    "imdbVotes": "1,446,708",
+    "imdbID": "tt1375666",
+    "Type": "movie",
+    "Response": "True"
+  }
+];
+
+const ratings = watchList.map(item => ({
+  title: item["Title"],
+  rating: item["imdbRating"]
+}));
+
+Here .map returns a new object that will have the attributes "title:" and "rating:" and the values are fetched by .map
+and decided by it's callback function . A nameless selfexecuting function that returns in the way above.

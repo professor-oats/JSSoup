@@ -1,0 +1,19 @@
+function alphabeticalOrder(arr) {
+  // Only change code below this line
+
+arr.sort(function(a, b) {
+
+  // a superequals b? 0 - no switch
+  // a less than b? -1 - a before b
+  // else (a bigger than b) 1 - b before a
+
+    return a === b ? 0 : a < b ? -1 : 1;
+
+  });
+
+
+  return arr
+  // Only change code above this line
+}
+
+alphabeticalOrder(["a", "d", "c", "a", "z", "g"]);

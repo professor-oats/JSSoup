@@ -1,0 +1,35 @@
+function mutation(arr) {
+  // transmute
+  let arr2 = arr.pop();
+  let arr1 = arr.pop();
+  let arr1new = arr1.toLowerCase();
+  let arr2new = arr2.toLowerCase();
+  arr2 = arr2new.split("");
+  arr1 = arr1new.split("");
+
+  console.log(arr2);
+
+  // vars
+  var i = 0;
+  var j = 0;
+  var counttrue = 0;
+  var temp;
+
+  // do recursive loop
+
+  for (i; i < arr1.length; i++) {
+      if (arr2[j] === arr1[i]) {
+        temp = arr2.shift();  // shifting when getting match
+        console.log(temp);
+        counttrue;
+        i = 0;
+      }
+    }
+    if (counttrue >= arr2.length) {
+      return true;
+    } 
+
+    return false;
+  }
+
+mutation(["Mary", "Army"]);

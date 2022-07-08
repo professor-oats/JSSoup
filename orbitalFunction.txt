@@ -1,0 +1,39 @@
+function orbitalPeriod(arr) {
+  const GM = 398600.4418;
+  const earthRadius = 6367.4447;
+
+  // Map and replace?
+  // Also make a function to calculate
+
+  let Aarguments = arr;
+  let Avalid = [];
+  let indexstore = 0;
+  let currentorbT = 0;
+  let Sreplace = '';
+  let Smod = '';
+  let Areturn = [];
+
+  function calculate (altitude) {
+    let myT = 2 * Math.PI * Math.sqrt(Math.pow(earthRadius + altitude, 3)/GM);
+    return Math.round(myT); 
+  }
+
+
+  console.log(Aarguments[0]);
+
+  for (let check in Aarguments) {
+    if (Aarguments[check].hasOwnProperty('avgAlt')) {
+      Avalid.push(Aarguments[check]);
+
+      currentorbT = calculate(Aarguments[check].avgAlt);
+      Sreplace = 'orbitalPeriod:' + ' ' + currentorbT;
+
+      Areturn.push({name: Aarguments[check].name, orbitalPeriod: currentorbT});
+
+
+    }
+  } 
+
+  console.log(Avalid[0].avgAlt);
+  console.log(Sreplace);
+  console.log(Areturn);

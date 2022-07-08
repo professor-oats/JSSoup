@@ -1,0 +1,36 @@
+function palindrome(str) {
+
+  // less than parseint division2 of length?
+
+  let Sslice = str.slice('');
+  let Sslicelow = Sslice.toLowerCase();
+  let Aslicelow = Sslicelow.split('');
+  let Atest = [];
+  let i = 0;
+
+  const rex = /[^A-Za-z0-9]/;
+
+
+  // test
+  if (rex.test(Sslice)) {
+    console.log('look mom');
+  }
+
+  for (i = 0; i < Aslicelow.length; i++) {
+    if(!rex.test(Aslicelow[i])) {
+      //console.log(Aslicelow[i]);
+      Atest.push(Aslicelow[i]);
+    }
+  }
+
+  for (i = 0; i < parseInt(Atest.length/2); i++) {
+    if(Atest[i] != Atest[Atest.length - 1 - i]){
+      console.log('false');
+      return false;
+    }
+  }
+
+  return true;
+}
+
+palindrome("0_0 (: /-\ :) 0-0");

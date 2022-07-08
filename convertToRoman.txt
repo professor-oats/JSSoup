@@ -1,0 +1,107 @@
+function convertToRoman(num) {
+
+// breakpoints at 5, 10, 50, 100, 500, 1000
+// we will keep track of the decimal values
+
+let countIXC = 0;
+let Anumbersplit = String(num).split('');
+let Anumberconvert = [];
+let Aresult = [];
+var restvalue = 0;
+let i = 0;
+let j = 0;
+
+let rex = /[0-9]/;
+
+console.log(rex.test(num));
+
+// Throw error
+if (!rex.test(num)) {
+  return console.log("Must type a valid decimal number");
+}
+
+// Convert from strings to numbers to use their values
+Anumberconvert = Anumbersplit.map(every =>{
+  return Number(every);
+})
+
+function genI (valuein) {
+  //let countI = valuein;
+  for (; restvalue > 0; restvalue--) {
+    Aresult.push('I');
+  }
+}
+
+function genX (valuein) {
+  let countI = valuein;
+  for (; countI < valuein; countI++) {
+    Aresult.push('X');
+  }
+}
+
+function genC (valuein) {
+  let countI = valuein;
+  for (; countI < valuein; countI++) {
+    Aresult.push('C');
+  }
+}
+
+console.log(Anumberconvert.length);
+
+j = Anumberconvert.length;
+
+for (i = 0; i < j; i++) {
+  restvalue = Anumberconvert[i];
+
+  while(restvalue > 0) {
+    console.log(restvalue);
+  // Will make switch on the numbers of decimal
+    switch (j) {
+      case 1:
+        if (restvalue <= 3) {
+          genI(restvalue);
+          console.log(restvalue);
+          // No need restvalue = 0 since function genI takes care
+        }
+
+        if (restvalue == 4) {
+          Aresult.push('IV')
+          restvalue = 0;
+        }
+
+        if (restvalue > 4 && restvalue < 9) {
+          Aresult.push('V');
+          restvalue = restvalue - 5;
+        }
+
+        if (restvalue == 9) {
+          Aresult.push('IX');
+          restvalue = 0;
+        }
+
+        break;
+      
+      case 2:
+        genX(Aresult[i]);
+        j--;  // Walking down one step in ten value
+        break;
+
+      case 3:
+        genC(Aresult[i]);
+        j--;  // Walking down one step in ten value
+        break;
+
+       default:
+         restvalue = 0;
+    }
+  }
+}
+
+console.log(Aresult);
+
+
+
+ return 0;
+}
+
+convertToRoman(2);

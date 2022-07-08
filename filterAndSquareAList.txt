@@ -1,0 +1,30 @@
+const squareList = arr => {
+  // Only change code below this line
+  let toNumbers = [];
+  let filterTime = [];
+  let filterTime2 = [];
+  let newSquareList = [];
+
+  // Convert to numbers with .map
+
+  toNumbers = arr.map(str => {
+  return Number(str);
+});
+
+
+  // Filter bigger than or equal to 0
+  filterTime = toNumbers.filter(takeit => takeit >= 0);
+
+  // Filter if integer
+  filterTime2 = filterTime.filter(takeit2 => Number.isInteger(takeit2));
+
+  // Squaring it up with .map
+  newSquareList = filterTime2.map(num => Math.pow(num, 2));
+
+
+  return newSquareList;
+  // Only change code above this line
+};
+
+const squaredIntegers = squareList([-3, 4.8, 5, 3, -3.2]);
+console.log(squaredIntegers);

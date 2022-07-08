@@ -1,0 +1,40 @@
+function binaryAgent(str) {
+
+  let strcopy = str;
+  let i = 0;
+  let test = 0;
+  let mydecimal = 0;
+  let Afinal = [];  // We will be pushing to this
+
+  // We will convert binary value to it's corrensponding Unicode character so we could check for the delimiter ' ' and make it into an array?
+
+  let stringsplit = str.split(' ');
+
+  test = Number(stringsplit[0]);
+
+  console.log(test)
+  
+  mydecimal = parseInt(test, 2);
+
+  console.log(mydecimal);
+
+  // alright we got it
+
+  for (i = 0; i < stringsplit.length; i++) {
+    test = Number(stringsplit[i]);
+    mydecimal = parseInt(test, 2);  // Base 2
+
+    //console.log(String.fromCharCode(mydecimal))
+
+    Afinal.push(String.fromCharCode(mydecimal));
+
+ 
+
+  }
+
+  console.log(Afinal.join(''))
+
+  return Afinal.join('');
+}
+
+binaryAgent("01000001 01110010 01100101 01101110 00100111 01110100 00100000 01100010 01101111 01101110 01100110 01101001 01110010 01100101 01110011 00100000 01100110 01110101 01101110 00100001 00111111");

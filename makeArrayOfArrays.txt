@@ -1,0 +1,31 @@
+function chunkArrayInGroups(arr, size) {
+  // build a new array of arrays from an array.
+  // we will have two do .push/.pop in two segments
+  // first we can pop/shift elements into an array of order size-1
+  // then we push that array to form our resulting array
+
+  let arrslice = arr.splice('');
+  console.log(arrslice);
+  let temparr = [];
+  let resultarr = [];
+
+  // loop through whole arrslice and push when the remainder of i/size !== size-1
+  // (if i is within the range of size-1)
+
+  for (let i = 0; i < arrslice.length; i++) {
+    if (i % size !== size-1) {
+      temparr.push(arrslice[i]);   // pushing what is in position for i
+    }
+    else {
+      temparr.push(arrslice[i]);
+      resultarr.push(temparr);
+      temparr = [];   // emptying temp to take next size
+    }
+  }
+
+  if (temparr.length !== 0) resultarr.push(temparr);   // push the reminder of stored elements if they don't add up to size
+
+  return resultarr;
+}
+
+chunkArrayInGroups(["a", "b", "c", "d"], 2);

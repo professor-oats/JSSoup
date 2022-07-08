@@ -1,0 +1,45 @@
+function smallestCommons(arr) {
+  let arrslice = arr.slice('');
+  let numberofnumbers = 0;
+  let Anumbers = [];
+  let i = 0;
+
+  let minnumber = 0;
+  let maxnumber = 0;
+  var commonmultiple = 0;  
+
+  if (arrslice[0] > arrslice[1])  {
+    numberofnumbers = arrslice[0] - arrslice[1] + 1;
+    minnumber = arrslice[1];
+    maxnumber = arrslice[0];
+  }
+  else {
+    numberofnumbers = arrslice[1] - arrslice[0] + 1;
+    minnumber = arrslice[0];
+    maxnumber = arrslice[1];
+  }
+
+  for (i = 0; i < numberofnumbers; i++) {
+    Anumbers[i] = minnumber + i;
+  }
+
+  function gcd(a, b) {
+    return !b ? a : gcd(b, a % b);
+  }
+
+  function lcm(a, b) {
+        return (a * b) / gcd(a, b);   
+    }
+
+  commonmultiple = minnumber;  // Starting multiply from min
+
+  Anumbers.forEach(function(n) {
+    commonmultiple = lcm(commonmultiple, n);
+  })
+
+  console.log(commonmultiple);
+
+  return commonmultiple;
+}
+
+smallestCommons([1,5]);

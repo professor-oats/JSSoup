@@ -1,0 +1,15 @@
+function sentensify(str) {
+  // Only change code below this line
+  let splitarray = [];
+
+  // First we split the arr with regex for all nonWord (nonletter)
+  splitarray = str.split(/\W/);
+
+  // Then we join the elements together into a string with " " blank as delimiter
+  return splitarray.join(" ");
+
+  
+  // Only change code above this line
+}
+
+sentensify("May-the-force-be-with-you");

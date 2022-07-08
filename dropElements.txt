@@ -1,0 +1,31 @@
+function dropElements(arr, func) {
+
+  // We will remove all elements that return false to the parameter function
+  // and then return the first true + the rest of the array (splice until true)
+  // so the first true acts as a breakpoint
+
+  // Since index is 0 and we will be removing 1 element at a time we could go with shift too
+
+  let slicearr = arr.slice('');
+  let i = 0;
+  let splicestep = 0;
+
+
+  for(i = 0; i < slicearr.length; i++) {
+    if (func(slicearr[i])) {
+      splicestep = i;
+      break;
+    }
+  }
+
+  console.log(slicearr)
+
+  slicearr.splice(0, i);
+
+  console.log(slicearr);
+  
+
+  return slicearr;
+}
+
+dropElements([0, 1, 0, 1], function(n) {return n === 1;});

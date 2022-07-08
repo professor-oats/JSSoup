@@ -1,0 +1,13 @@
+// This function adds together two different parameters
+
+
+function addTogether() {
+  const [first, second] = arguments;  // Put the arguments into first respectively second
+  if (typeof(first) !== "number")  // Is not number firsy
+    return undefined;
+  if (second === undefined)	// If undefined return the function again but this time with new second in
+    return (second) => addTogether(first, second);
+  if (typeof(second) !== "number")  // If second not a number return undefined
+    return undefined;
+  return first + second;   // Default add together, since that is what the func does
+}

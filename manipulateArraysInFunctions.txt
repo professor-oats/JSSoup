@@ -1,0 +1,41 @@
+/*
+So far, we have seen two distinct principles for functional programming:
+
+Don't alter a variable or object - create new variables and objects and return them if need be from a function. Hint: using something like const newArr = arrVar, where arrVar is an array will simply create a reference to the existing variable and not a copy. So changing a value in newArr would change the value in arrVar.
+
+Declare function parameters - any computation inside a function depends only on the arguments passed to the function, and not on any global object or variable.
+
+Adding one to a number is not very exciting, but we can apply these principles when working with arrays or more complex objects.
+*/
+
+// The global variable
+const bookList = ["The Hound of the Baskervilles", "On The Electrodynamics of Moving Bodies", "Philosophiæ Naturalis Principia Mathematica", "Disquisitiones Arithmeticae"];
+
+// Change code below this line
+function add(addarr, bookName) {
+
+  let addarray = [...addarr];
+
+  addarray.push(bookName);
+  return addarray;
+  
+  // Change code above this line
+}
+
+// Change code below this line
+function remove(remarr, bookName) {
+
+  let removearray = [...remarr];    // Using = remarr is simply creating a reference to the passed in bookList
+				    // So this is the way to properly copy from the array into a new one
+
+  const book_index = removearray.indexOf(bookName);
+  if (book_index >= 0) {
+
+    removearray.splice(book_index, 1);
+    return removearray;
+
+    // Change code above this line
+    }
+
+    console.log(bookList)
+}
