@@ -1,0 +1,61 @@
+function rot13(str) {
+
+  // Use only capital letters. A = 65 and Z = 90
+  // ROT13 decoder. Means we will have to move 13 places 'backwards'
+
+  // Breakpoint will be at N since then it goes back to Z when substracting
+  // Will make it to proper array since I find it easier working with
+  // Or not since the unicode method works on strings lol
+
+  // Good to know when making this program is that one can improve it by doing some error testing if a user puts in very nonvalid characters since there is no current block for them
+
+  const MINCHAR = 65;
+  const MAXCHAR = 90;
+  const ROT = 13;
+  const BREAKPOINT = MAXCHAR - ROT;
+
+  let pushcharcode = 0;
+  let rex = /[^A-Z]/;  // Will use this to pass the hyphens etc.
+
+  let Astrslice = str.slice('');
+  let Aresult = [];
+  let Sresult = '';
+
+  let i = 0;
+
+  //console.log(Astrslice);
+  //console.log('N'.charCodeAt(0));
+
+  for (i = 0; i < Astrslice.length; i++) {
+
+      if (rex.test(Astrslice[i])) {
+        Aresult.push(Astrslice[i]);
+      }
+
+      else if ((str.charCodeAt(i) <= BREAKPOINT)) {  // Checking the breakpoint
+        pushcharcode = MAXCHAR - (BREAKPOINT - str.charCodeAt(i));
+        // Is this more memory effecient than assigning a var as currentcharcode before?
+        Aresult.push(String.fromCharCode(pushcharcode));
+      }
+
+      else {
+        pushcharcode = str.charCodeAt(i) - ROT;
+        Aresult.push(String.fromCharCode(pushcharcode));
+      }
+  }
+
+  console.log(Aresult);
+
+  Sresult = Aresult.join('');
+
+  console.log(Sresult)
+
+
+
+
+  return Sresult;
+}
+
+
+
+rot13("GUR DHVPX OEBJA SBK WHZCF BIRE GUR YNML QBT.");

@@ -1,0 +1,179 @@
+function telephoneCheck(str) {
+
+  let Rnumbercheck = /[0-9]/;
+  var errorholder = 0;
+  var currentindex = 0;
+
+  // There are different main cases of number formats that I will put into functions as far as possible.
+  // One remark is to check that the delimiters are correct. 2 formats has '(',
+  // 3 formats has '-' whereat one starts with a ' ' delimiter (third line of assignment data)
+  // 2 fortmats has ' ' where at one starts with a ' ' also (sixth line of assignment data)
+
+  // I will create a checker of the first character since it will determine how the rest goes. I may also have a separate processing of the local formatted number with no delimiters.
+
+  // Will go with regex since we are handling strings here. Otherwise one can check the type to number.
+
+  // I will use an errorholder to specify when error occurred.
+
+  // Remember to make sure in code that the user of program has to have the form of either dash as delimiter or whitespace, never a combination of both.
+
+  let Snumbercopy = str.slice('');  //creating main copy
+
+  // catch first errors
+  if(Snumbercopy.length > 16) {
+    return false;
+  }
+
+  if(!(Rnumbercheck.test(Snumbercopy[0]) || Snumbercopy[0] == '(')) {
+    return false;
+  }
+
+  if(Snumbercopy[1] == ' ' || Snumbercopy[1] == '(') {
+    if (!(Snumbercopy[0] == '1')) {  // checking if country code is 1
+      return false;
+    }
+    // Dirty work below, this will push away the area part of the number to be fit for
+    // the rest of the program = area code checked
+
+    switch(Snumbercopy[1]) {
+      case ' ':
+        let Stemp = Snumbercopy.slice(2);
+        Snumbercopy = Stemp;
+        break;
+
+      default:
+        Stemp = Snumbercopy.slice(1);
+        Snumbercopy = Stemp;
+    }
+  }
+
+
+  // Start of the main check of the number after areacode check
+
+  switch(Snumbercopy[0]) {
+    case '(':
+      currentindex++;  // Char sequence starts one position from the '('
+      testCharSequence(Snumbercopy, 3);  // first part
+      if (!(Snumbercopy[currentindex] == ')')) {
+        errorholder = 1;
+      }
+
+      if(errorholder){
+        return false;
+      }
+
+      currentindex++;  // Now it should be 5
+
+      if(!(Rnumbercheck.test(Snumbercopy[currentindex]) || Snumbercopy[currentindex] == ' ')) {
+        return false;
+      }
+
+      if(Snumbercopy[currentindex] == ' ') {
+        currentindex++;
+      }
+
+      if(Snumbercopy.length - currentindex != 8) {  // Check for wrong amount endian
+        return false;
+      }
+
+
+      hyphenEndian(Snumbercopy);
+
+      if(errorholder) {
+        return false;
+      }
+      break;
+
+    default:
+      testCharSequence(Snumbercopy, 3);
+
+      if(!(Rnumbercheck.test(Snumbercopy[currentindex]) || Snumbercopy[currentindex] == ' ' || Snumbercopy[currentindex] == '-' )) {
+        return false;
+      }
+      
+      switch(Snumbercopy[currentindex]) {
+        case ' ':
+        currentindex++;
+        if(Snumbercopy.length - currentindex != 8) {
+          return false
+        }
+        whiteSpaceEndian(Snumbercopy);
+        if(errorholder) {
+          return false;
+        }
+        break;
+
+        case '-':
+        currentindex++
+        if(Snumbercopy.length - currentindex != 8) {
+          return false
+        }
+        hyphenEndian(Snumbercopy);
+        if(errorholder) {
+          return false
+        }
+        break;
+
+        default:  // Here we will have a number or other character. The number testing will be done in the function called, therefore no increase of index
+        if(Snumbercopy.length - currentindex != 7) {
+          return false;
+        }
+        testCharSequence(Snumbercopy, currentindex, 7, errorholder);
+        if(errorholder) {
+          return false;
+        }
+
+      }
+
+  }
+  
+  console.log("more pikachu");  // True signal
+
+  return true;
+
+  // This will return false if error occurs and newindex otherwise
+  function testCharSequence(instring, amountrepeats) {
+    let startindex = currentindex;
+
+    for (; currentindex < startindex + amountrepeats; currentindex++) {
+      if(!Rnumbercheck.test(instring[currentindex])) {
+        errorholder = 1;
+      }
+    }
+
+    return;
+  }
+
+
+  function hyphenEndian(instring) {
+    testCharSequence(instring, 3);
+    if (instring[currentindex] != '-') {
+      errorholder = 1;
+      return;
+    }
+    currentindex++;  // check next
+
+    testCharSequence(instring, 4);
+
+    return;
+  
+  }
+
+  function whiteSpaceEndian(instring) {
+    testCharSequence(instring, 3);
+    if (Snumbercopy[currentindex] != ' ') {
+      errorholder = 1;
+      return;
+    }
+    currentindex++;  // check next
+
+    testCharSequence(instring, 4);
+
+    return;
+
+  }
+
+
+}
+
+telephoneCheck("1 555 555 5555");

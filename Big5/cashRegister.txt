@@ -1,0 +1,117 @@
+// Otherwise it will print "OPEN" and the change
+// Will return as object and with descending value order
+// Only time it will return closed is if every value left is 0
+
+// Make map of the change values?
+
+// First check if biggest change can be taken (rest >0) until it can't
+// then go to second biggest etc
+
+// One method could be of mapping so we store the value for a certain index in the
+// array and start from the highest possible index
+// a.k.a. we don't try every tray, we start where it is possible
+// to make this possible we have to have a value set to each index
+
+function checkCashRegister(price, cash, cid) {
+  let diff = cash - price;
+  let Aabstraction = [];
+  let Avalues = [];
+  let Anames = [];
+  let Achange = [];
+  let Aemptytray = [];
+  let breakpoint = 0;
+  let beeninside = 0;
+  let taken = 0;
+  let traysareempty = 1;
+
+  // abstraction of the values from the cid
+  // giving easy acces to numeric operations
+  for (let i = 0; i < cid.length; i++) {
+    Aabstraction.push(cid[i][1]);
+  }
+
+  // we will want to map values to index
+  // we will also want to map names to index
+
+  const valuemap = new Map();
+  const namemap = new Map();
+
+  // set value and name for index in separate maps
+  Avalues = [0.01, 0.05, 0.1, 0.25, 1, 5, 10, 20, 100];
+  Anames = ["PENNY", "NICKEL", "DIME", "QUARTER", "ONE", "FIVE", "TEN", "TWENTY", "ONE HUNDRED"];
+
+  // building index + map.set
+  for (let i = 0; i < Avalues.length; i++) {
+    valuemap.set(i, Avalues[i]);
+    namemap.set(i, Anames[i]);
+  }
+
+  // see from what tray to begin take change from
+  for (let i = Avalues.length - 1; i >=0 && diff >= 0; i-- ) {
+    if(diff >= Avalues[i] && Aabstraction[i] != 0) {
+      breakpoint = i;
+      break;
+    }
+  }
+
+  // this looks through each tray starting with the highest order
+  // and takes as much change needed from that tray before
+  // decrementing to lower order in sequence
+  // if not enough in tray - skip (break) - take none
+  // need to use toFixed method since operating with decimals
+
+  for (let i = breakpoint; i >= 0 ; i--) {
+    while(diff >= Avalues[i]) {
+      Aabstraction[i] = (Aabstraction[i].toFixed(2) * 100 - (Avalues[i].toFixed(2) * 100)) / 100;
+      if (Aabstraction[i] < 0) {
+        break;
+      }
+      taken = (taken.toFixed(2) * 100 + (Avalues[i].toFixed(2) * 100)) / 100;
+      diff = (diff.toFixed(2) * 100 - (Avalues[i].toFixed(2) * 100)) / 100;
+      beeninside = 1;
+    }
+    if (beeninside) {
+      Achange.push([namemap.get(i), taken]);
+      beeninside = 0;
+      taken = 0;
+    }
+  }
+
+  for(let i = 0; i < Aabstraction.length; i++) {
+    if(Aabstraction[i] != 0) {
+      traysareempty = 0;
+      break;
+    }
+  }
+
+  if(diff > 0) {
+    return {status: "INSUFFICIENT_FUNDS", change: []}
+  };
+
+  // reflection: above code will give returns only for the
+  // nonempty trays which for current circumstances may be fit
+  // however assignment is to return the empty trays also
+
+  // what this does is checking for occurances of valuenames
+  // e.g. PENNY, NICKEL inside the Achange. If occurs push
+  // corresponding value, otherwise push the Aabstraction[i]
+  // (value left after all money taken, in this case 0's)
+  if(traysareempty) {
+    for (let i = 0, j = 0; i < Anames.length; i++) {
+      if(namemap.get(i) == Achange[j][0]) {
+        Aemptytray.push(Achange[j]);
+        if (j < Achange.length - 1) {
+          j++
+        }
+        continue;
+      }
+      Aemptytray.push([namemap.get(i), Aabstraction[i]]);
+    }
+
+    return {status: "CLOSED", change: Aemptytray};
+  }
+
+  return {status: "OPEN", change: Achange};
+}
+
+checkCashRegister(19.5, 20, [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);

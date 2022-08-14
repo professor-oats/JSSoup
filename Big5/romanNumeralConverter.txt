@@ -1,0 +1,177 @@
+function convertToRoman(num) {
+
+// breakpoints at 5, 10, 50, 100, 500, 1000
+// we will keep track of the decimal values
+
+let countIXC = 0;
+let Anumbersplit = String(num).split('');
+let Anumberconvert = [];
+let Aresult = [];
+let Sresult = '';
+var restvalue = 0;
+let i = 0;
+let j = 0;
+let tenstep = 0;
+
+let rex = /[0-9]/;
+
+//console.log(rex.test(num));
+
+// Throw error
+if (!rex.test(num)) {
+  return console.log("Must type a valid decimal number");
+}
+
+// Convert from strings to numbers to use their values
+Anumberconvert = Anumbersplit.map(every =>{
+  return Number(every);
+})
+
+function genI (valuein) {
+  for (; restvalue > 0; restvalue--) {
+    Aresult.push('I');
+  }
+}
+
+function genX (valuein) {
+  for (; restvalue > 0; restvalue--) {
+    Aresult.push('X');
+  }
+}
+
+function genC (valuein) {
+  for (; restvalue > 0; restvalue--) {
+    Aresult.push('C');
+  }
+}
+
+function genM (valuein) {
+  for (; restvalue > 0; restvalue--) {
+    Aresult.push('M');
+  }
+}
+
+//console.log(Anumberconvert.length);
+
+tenstep = j = Anumberconvert.length;
+
+for (i = 0; i < j; i++) {
+  restvalue = Anumberconvert[i];
+
+ 
+    console.log(restvalue);
+  // Will make switch on the numbers of decimal
+    switch (tenstep) {
+      case 1:
+       while(restvalue > 0) {
+        if (restvalue <= 3) {
+          genI(restvalue);
+          // No need restvalue = 0 since function genI takes care
+        }
+
+        if (restvalue == 4) {
+          Aresult.push('IV')
+          restvalue = 0;
+        }
+
+        if (restvalue > 4 && restvalue < 9) {
+          Aresult.push('V');
+          restvalue = restvalue - 5;
+        }
+
+        if (restvalue == 9) {
+          Aresult.push('IX');
+          restvalue = 0;
+        }
+
+       }
+        break;
+      
+      case 2:
+       while(restvalue > 0) {
+        if (restvalue <= 3) {
+          genX(restvalue);
+          // No need restvalue = 0 since function genX takes care
+        }
+
+        if (restvalue == 4) {
+          Aresult.push('XL')
+          restvalue = 0;
+        }
+
+        if (restvalue > 4 && restvalue < 9) {
+          Aresult.push('L');
+          restvalue = restvalue - 5;
+        }
+
+        if (restvalue == 9) {
+          Aresult.push('XC');
+          restvalue = 0;
+        }
+
+       }
+
+        tenstep--;  // Walking down one step in ten value
+
+        break;
+
+      case 3:
+       while(restvalue > 0) {
+        if (restvalue <= 3) {
+          genC(restvalue);
+          // No need restvalue = 0 since function genC takes care
+        }
+
+        if (restvalue == 4) {
+          Aresult.push('CD')
+          restvalue = 0;
+        }
+
+        if (restvalue > 4 && restvalue < 9) {
+          Aresult.push('D');
+          restvalue = restvalue - 5;
+        }
+
+        if (restvalue == 9) {
+          Aresult.push('CM');
+          restvalue = 0;
+        }
+
+       }
+
+        tenstep--;  // Walking down one step in ten value
+
+        break;
+
+      case 4:
+       while(restvalue > 0) {
+        if (restvalue <= 3) {
+          genM(restvalue);
+          // No need restvalue = 0 since function genM takes care
+        }
+
+        if (restvalue >= 4) {
+          return console.log("Sorry. Maximum accepted number is 3999")
+        }
+
+       }
+
+        tenstep--;  // Walking down one step in ten value
+
+        break;
+
+       default:
+         restvalue = 0;
+  }
+}
+
+console.log(Aresult);
+
+Sresult = Aresult.join('');
+
+
+
+ return Sresult;
+}
+
+convertToRoman(345);
